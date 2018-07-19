@@ -12,7 +12,8 @@ class URLify  {
 
     int fast = trueLength + (spaceCount * 2) - 1;
     for (int slow = trueLength - 1; slow >= 0; --slow) {
-      System.out.println(String.format("slow: %d | fast: %d", slow, fast));
+      if (slow == fast) break;
+
       if (str[slow] == ' ') {
         str[fast--] = '0';
         str[fast--] = '2';
