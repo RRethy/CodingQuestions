@@ -1,20 +1,20 @@
 public class ZeroMatrix {
   public static void main(String[] args) {
-    int[][] matrix = new int[][]{new int[]{1, 2, 0, 4}, new int[]{5, 6, 7, 0}, new int[]{9, 10, 11, 12}, new int[]{13, 14, 15, 16}};
+    int[][] matrix = new int[][]{new int[]{1, 2, 0}, new int[]{5, 6, 7}, new int[]{9, 10, 11}, new int[]{13, 14, 15}};
     for (int i = 0; i < 4; i++) {
       System.out.println(String.format("---------------------"));
-      System.out.println(String.format("| %02d | %02d | %02d | %02d |", matrix[i][0], matrix[i][1], matrix[i][2], matrix[i][3]));
+      System.out.println(String.format("| %02d | %02d | %02d |", matrix[i][0], matrix[i][1], matrix[i][2]));
       System.out.println(String.format("---------------------"));
     }
 
     System.out.println(String.format("====================="));
     System.out.println(String.format("====================="));
 
-    zeroMatrix(matrix);
+    zeroMatrix2(matrix);
 
     for (int i = 0; i < 4; i++) {
       System.out.println(String.format("---------------------"));
-      System.out.println(String.format("| %02d | %02d | %02d | %02d |", matrix[i][0], matrix[i][1], matrix[i][2], matrix[i][3]));
+      System.out.println(String.format("| %02d | %02d | %02d |", matrix[i][0], matrix[i][1], matrix[i][2]));
       System.out.println(String.format("---------------------"));
     }
   }
@@ -41,11 +41,63 @@ public class ZeroMatrix {
       }
     }
 
-    for (int ci = 0; ci < zrows.length; ci++) {
+    for (int ci = 0; ci < zcols.length; ci++) {
       if (zcols[ci]) {
         for (int i = 0; i < matrix.length; i++) {
           matrix[i][ci] = 0;
         }
+      }
+    }
+  }
+
+  private static void zeroMatrix2(int[][] matrix) {
+    if (matrix.length == 0 || matrix[0].length == 0) return;
+
+    boolean firstRowHasZero = false;
+    boolean firstColHasZero = false;
+
+    for (int i = 0; i < matrix.length; i++) {
+      if (matrix[i][0] == 0) firstColHasZero = true;
+    }
+
+    for (int i = 0; i < matrix[0].length; i++) {
+      if (matrix[0][i] == 0) firstRowHasZero = true;
+    }
+
+    for (int i = 1; i < matrix.length; i++) {
+      for (int j = 1; j < matrix[0].length; j++) {
+        if (matrix[i][j] == 0) {
+          matrix[i][0] = 0;
+          matrix[0][j] = 0;
+        }
+      }
+    }
+
+    for (int i = 0; i < matrix.length; i++) {
+      if (matrix[i][0] == 0) {
+        for (int j = 1; j < matrix[0].length; j++) {
+          matrix[i][j] = 0;
+        }
+      }
+    }
+
+    for (int i = 0; i < matrix[0].length; i++) {
+      if (matrix[0][i] == 0) {
+        for (int j = 1; j < matrix.length; j++) {
+          matrix[j][i] = 0;
+        }
+      }
+    }
+
+    if (firstColHasZero) {
+      for (int i = 0; i < matrix.length; i++) {
+        matrix[i][0] = 0;
+      }
+    }
+
+    if (firstRowHasZero) {
+      for (int i = 0; i < matrix[0].length; i++) {
+        matrix[0][i] = 0;
       }
     }
   }
