@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.lang.Integer;
 
 public class StackingDivs {
 
@@ -25,10 +26,31 @@ public class StackingDivs {
     t.rows.add(r2);
     t.rows.add(r3);
     int length = findTableLength(t);
+    System.out.println(String.valueOf(length));
   }
 
   private static int findTableLength(Table t) {
-    
+    ArrayList<Integer> stacks = new ArrayList<>();
+    for (int ri = 0; ri < t.rows.size(); ri++) {
+      for (int ci = 0; ci < t.rows.get(ri).cols.size(); ci++) {
+        int colh = t.rows.get(ri).cols.get(ci).height;
+        int colw = t.rows.get(ri).cols.get(ci).width;
+        for (int i = 0; i < stacks.size(); i++) {
+          if (stacks.get(i) <= ri + 1) {
+            stacks.set(i, ri + colh);
+            colw--;
+          }
+          if (colw == 0) {
+            break;
+          }
+        }
+        while (colw > 0) {
+          stacks.add(ri + colh);
+          colw--;
+        }
+      }
+    }
+    return stacks.size();
   }
 
   public static class Table {
@@ -43,6 +65,7 @@ public class StackingDivs {
     int height;
     int width;
     public Col(int height, int width) {
+      this.height = height;
       this.width = width;
     }
   }
