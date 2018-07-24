@@ -22,8 +22,8 @@ public class StackImpl {
   }
 
   public static class MyStack {
-    Node node;
-    int size;
+    private Node node;
+    private int size;
 
     public void push(int val) {
       this.size++;
@@ -46,7 +46,7 @@ public class StackImpl {
   }
 
   public static class Node {
-    int val;
+    private int val;
     Node next;
     public Node(int val) {
       this.val = val;
