@@ -11,7 +11,7 @@ public class TrieNodeImpl {
     addWord("hockey", tn);
     addWord("magic", tn);
 
-    printWords("", tn);
+    // printWords("", tn);
 
     removeWord("Hello", tn);
     removeWord("Adam", tn);
@@ -22,7 +22,18 @@ public class TrieNodeImpl {
     removeWord("hockey", tn);
     removeWord("magic", tn);
 
-    printWords("", tn);
+    // printWords("", tn);
+
+    addWord("Hello", tn);
+    addWord("Adam", tn);
+    addWord("adam", tn);
+    addWord("adambanana", tn);
+    addWord("adamdinosaur", tn);
+    addWord("adamplay", tn);
+    addWord("adamhockey", tn);
+    addWord("adammagic", tn);
+
+    printCompletion("adam", tn);
   }
 
   private static void addWord(String word, TrieNode tn) {
@@ -63,6 +74,24 @@ public class TrieNodeImpl {
     }
 
     return removeWord(word.substring(1), tn.letters[word.charAt(0)]);
+  }
+
+  private static void printCompletion(String word, TrieNode tn) {
+    if (tn == null) return;
+    TrieNode cur = tn;
+    int ci = 0;
+    while (true) {
+      if (ci == word.length() - 1) break;
+
+      if (cur.letters[word.charAt(ci)] == null) return;
+
+      cur = cur.letters[word.charAt(ci)];
+      ci++;
+    }
+
+    for (int i = 0; i < 256; i++) {
+      printWords(word, cur.letters[i]);
+    }
   }
 
   public static class TrieNode {
